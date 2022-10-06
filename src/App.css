@@ -51,19 +51,6 @@
   border-color: white !important;
 }
 
-/* <!-- ---- Collection ---- --> */
-.active-filter-btn{
-  background-color: var(--pink) !important;
-  color: white !important;
-  border-color: var(--pink) !important;
-}
-.collection-img span{
-  top: 20px;
-  right: 20px;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-}
 
 /* <!-- ---- Specials ---- --> */
 .special-img span{
@@ -190,4 +177,80 @@ p {
   .cartImage {
       display: none;
   }
+}
+
+/* <!-- ---- Admin ---- --> */
+.admin {
+  text-align: center;
+  padding-top: 120px !important;
+  padding-left: 100px !important;
+  padding-right: 100px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:root{
+  --lg-font: 'Kaisei Tokumin', serif;
+  --sm-font: 'Poppins', sans-serif;
+  --orange: #eea812;
+  --green: #83eb88;;
+}
+body {
+  font-family: var(--sm-font);
+}
+/* --------------- Footer -------------- */
+.alpha {
+  position: relative;
+  display: flex;
+  z-index: 2;
+}
+.alpha .beta {
+  position: relative;
+  list-style: none;
+  margin: 10px;
+}
+.alpha .beta .charlie {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 2em;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-right: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 5px 45px rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  transition: 0.5s;
+  overflow: hidden;
+}
+.alpha .beta .charlie:hover {
+  transform: translateY(-20px);
+}
+.alpha .beta .charlie::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 100%;
+  background: rgba(255,255,255,0.5);
+  transform: skewX(45deg) translateX(150px);
+  transition: 1s;
+}
+.alpha .beta .charlie:hover::before {
+  transform: skewX(45deg) translateX(-150px);
+
+}
+.delta {
+  color: white;
+}
+.delta:hover {
+  color: rgb(217, 255, 0);
 }

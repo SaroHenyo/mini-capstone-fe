@@ -1,47 +1,47 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faShoppingCart,
   faSignOut,
   faSignIn,
   faEdit,
-} from "@fortawesome/free-solid-svg-icons";
-import { Container, Navbar } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
-import { auth, db } from "../firebase";
-import * as actionUser from "../redux/actions/actionUser";
-import { bindActionCreators } from "redux";
-import { useDispatch, useSelector } from "react-redux";
-import Spinner from "react-spinkit";
-import { useCollection } from "react-firebase-hooks/firestore";
+} from '@fortawesome/free-solid-svg-icons'
+import { Container, Navbar } from 'react-bootstrap'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { auth, db } from '../firebase'
+import * as actionUser from '../redux/actions/actionUser'
+import { bindActionCreators } from 'redux'
+import { useDispatch, useSelector } from 'react-redux'
+import Spinner from 'react-spinkit'
+import { useCollection } from 'react-firebase-hooks/firestore'
 
 export default function NavigationBar() {
-  const [loading, setLoading] = useState(false);
-  const { logoutUser } = bindActionCreators(actionUser, useDispatch());
-  const navigate = useNavigate();
-  const activeUser = useSelector((state) => state.activeUser);
+  const [loading, setLoading] = useState(false)
+  const { logoutUser } = bindActionCreators(actionUser, useDispatch())
+  const navigate = useNavigate()
+  const activeUser = useSelector((state) => state.activeUser)
   const [cartProducts] = useCollection(
     activeUser?.id &&
-      db.collection("users").doc(activeUser.id).collection("cart")
-  );
+      db.collection('users').doc(activeUser.id).collection('cart'),
+  )
 
   const logout = (e) => {
-    e.preventDefault();
-    auth.signOut();
-    setLoading(true);
+    e.preventDefault()
+    auth.signOut()
+    setLoading(true)
     setTimeout(() => {
-      setLoading(false);
-      logoutUser();
-      navigate("/login");
-    }, 1000);
-  };
+      setLoading(false)
+      logoutUser()
+      navigate('/login')
+    }, 1000)
+  }
 
   if (loading) {
     return (
       <div className="m-5">
         <Spinner name="ball-spin-fade-loader" color="blue" fadeIn="none" />
       </div>
-    );
+    )
   }
 
   return (
@@ -132,5 +132,5 @@ export default function NavigationBar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  );
+  )
 }
