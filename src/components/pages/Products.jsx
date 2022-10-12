@@ -1,36 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { renderLoading } from '../../utilities/loader'
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { renderLoading } from "../../utilities/loader";
 
 export default function Products() {
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState([])
-  const [filteredProducts, setFilteredProducts] = useState(data)
-  const [componentMounted, setComponentMounted] = useState(true)
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(data);
+  const [componentMounted, setComponentMounted] = useState(true);
 
   useEffect(() => {
     const getProducts = async () => {
-      setLoading(true)
-      const response = await fetch('https://fakestoreapi.com/products')
+      setLoading(true);
+      const response = await fetch("https://fakestoreapi.com/products");
 
       if (componentMounted) {
-        setData(await response.clone().json())
-        setFilteredProducts(await response.json())
-        setLoading(false)
+        setData(await response.clone().json());
+        setFilteredProducts(await response.json());
+        setLoading(false);
       }
 
       return () => {
-        setComponentMounted(false)
-      }
-    }
+        setComponentMounted(false);
+      };
+    };
 
-    getProducts()
-  }, [componentMounted])
+    getProducts();
+  }, [componentMounted]);
 
   const filterProducts = (category) => {
-    const updatedList = data.filter((item) => item.category === category)
-    setFilteredProducts(updatedList)
-  }
+    const updatedList = data.filter((item) => item.category === category);
+    setFilteredProducts(updatedList);
+  };
 
   const renderProducts = () => {
     return (
@@ -57,13 +57,13 @@ export default function Products() {
             </button>
             <button
               className="btn btn-outline-dark me-2"
-              onClick={() => filterProducts('jewelery')}
+              onClick={() => filterProducts("jewelery")}
             >
               Jewelery
             </button>
             <button
               className="btn btn-outline-dark me-2"
-              onClick={() => filterProducts('electronics')}
+              onClick={() => filterProducts("electronics")}
             >
               Electronics
             </button>
@@ -97,8 +97,8 @@ export default function Products() {
           </React.Fragment>
         ))}
       </>
-    )
-  }
+    );
+  };
 
   return (
     <div>
@@ -117,5 +117,5 @@ export default function Products() {
         </div>
       </div>
     </div>
-  )
+  );
 }

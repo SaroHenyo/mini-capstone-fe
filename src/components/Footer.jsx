@@ -1,122 +1,116 @@
-import { Icon } from '@iconify/react'
-import React from 'react'
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronRight,
+  faEnvelope,
+  faMapMarked,
+  faPhone,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebook,
+  faInstagram,
+  faTwitter,
+  faPinterest,
+} from "@fortawesome/free-brands-svg-icons";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    // Main Container
-    <div className="bg-primary w-full h-2/4">
-      {/* Footer Container */}
-      <div className="container-fluid sm:flex-col">
-        {/* Logo */}
-        <div className="flex flex-col items-center justify-center pl-10">
-          <img className="h-12" src={'/'} alt="logo" />
-          <div className="flex flex-col items-center justify-center">
-            <h1 className="font-semibold text-xl text-white">
-              E-Commerce Website
-            </h1>
-            <h3 className="font-extralight text-white text-center text-sm">
-              Community Building, Enriching through Technology
-            </h3>
+    <footer className="bg-dark py-5">
+      <div className="container">
+        <div className="row text-white g-4">
+          <div className="col-md-6 col-lg-3">
+            <a
+              href="index.html"
+              className="brand text-decoration-none text-white"
+            >
+              ULTRA
+            </a>
+            <p className="text-white mt-3 text-muted">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque
+              ipsa dolores laudantium harum repellat eligendi quos facilis qui
+              aliquam pariatur.
+            </p>
+          </div>
+          <div className="col-md-6 col-lg-3">
+            <h5 className="fw-light">Links</h5>
+            <ul className="list-unstyled">
+              <li className="my-3">
+                <Link
+                  to="/"
+                  className="text-white text-decoration-none text-muted"
+                >
+                  <FontAwesomeIcon icon={faChevronRight} /> Home
+                </Link>
+              </li>
+              <li className="my-3">
+                <Link
+                  to="/products"
+                  className="text-white text-decoration-none text-muted"
+                >
+                  <FontAwesomeIcon icon={faChevronRight} /> Products
+                </Link>
+              </li>
+              <li className="my-3">
+                <Link
+                  to="/about-us"
+                  className="text-white text-decoration-none text-muted"
+                >
+                  <FontAwesomeIcon icon={faChevronRight} /> About Us
+                </Link>
+              </li>
+              <li className="my-3">
+                <Link
+                  to="/contact-us"
+                  className="text-white text-decoration-none text-muted"
+                >
+                  <FontAwesomeIcon icon={faChevronRight} /> Contact Us
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="col-md-6 col-lg-3">
+            <h5 className="fw-light mb-3">Contact Us</h5>
+            <div className="d-flex justify-content-start align-items-start my-2 text-muted">
+              <span className="me-3">
+                <FontAwesomeIcon icon={faEnvelope} />
+              </span>
+              <span className="fw-light">ultra.support@gmail.com</span>
+            </div>
+            <div className="d-flex justify-content-start align-items-start my-2 text-muted">
+              <span className="me-3">
+                <FontAwesomeIcon icon={faMapMarked} />
+              </span>
+              <span className="fw-light">
+                Ultra Street, Angeles City, Pampanga Philippines
+              </span>
+            </div>
+            <div className="d-flex justify-content-start align-items-start my-2 text-muted">
+              <span className="me-3">
+                <FontAwesomeIcon icon={faPhone} />
+              </span>
+              <span className="fw-light">0987 6543 210</span>
+            </div>
+          </div>
+          <div className="col-md-6 col-lg-3">
+            <h5 className="fw-light mb-3">Follow Us</h5>
+            <ul className="list-unstyled d-flex">
+              <li className="text-decoration-none text-muted fs-4 me-4">
+                <FontAwesomeIcon icon={faFacebook} />
+              </li>
+              <li className="text-decoration-none text-muted fs-4 me-4">
+                <FontAwesomeIcon icon={faTwitter} />
+              </li>
+              <li className="text-decoration-none text-muted fs-4 me-4">
+                <FontAwesomeIcon icon={faInstagram} />
+              </li>
+              <li className="text-decoration-none text-muted fs-4 me-4">
+                <FontAwesomeIcon icon={faPinterest} />
+              </li>
+            </ul>
           </div>
         </div>
-        <div className="flex text-white">
-          <div className="flex flex-col justify-between md:flex-row relative w-full h-full sm:flex-col p-3">
-            {/* Contact Us */}
-            <div className="flex flex-col items-center justify-center">
-              <h1 className="font-semibold text-xl">Contact Us</h1>
-              <h3 className="font-extralight text-center text-sm">
-                (044) 7521-7000
-              </h3>
-              <h3 className="font-extralight text-center text-sm">
-                helpdesk@salesteam.com
-              </h3>
-            </div>
-            {/* Operating Hours */}
-            <div className="flex flex-col items-center justify-center">
-              <h1 className="font-semibold text-xl">Operating Hours</h1>
-              <h3 className="font-extralight text-center text-sm">
-                Monday - Friday 9:00 AM - 5:00 PM
-              </h3>
-              <h3 className="font-extralight text-center text-sm">
-                Saturday 10:00 AM - 4:00 PM
-              </h3>
-            </div>
-            {/* Address */}
-            <div className="flex flex-col items-center justify-center">
-              <h1 className="font-semibold text-xl">Address</h1>
-              <h3 className="font-extralight text-center text-sm">
-                San Rafael Bulacan, <br />
-                <span>Bulacan, Philippines</span>
-              </h3>
-            </div>
-          </div>
-        </div>
-        <ul className="alpha flex flex-row justify-center pl-10">
-          <a
-            className="beta"
-            href="https://www.facebook.com/digital7money"
-            target="_blank"
-            rel="noreferrer"
-          >
-            {' '}
-            <li className="charlie">
-              <Icon
-                className="alpha beta delta"
-                icon="akar-icons:facebook-fill"
-              />
-            </li>
-          </a>
-          <a
-            className="beta"
-            href="https://www.instagram.com"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <li className="charlie">
-              <Icon
-                className="alpha beta delta"
-                icon="ant-design:instagram-filled"
-              />
-            </li>
-          </a>
-          <a
-            className="beta"
-            href="https://www.twitter.com/CryptoHenyo"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <li className="charlie">
-              <Icon
-                className="alpha beta delta"
-                icon="ant-design:twitter-circle-filled"
-              />
-            </li>
-          </a>
-          <a
-            className="beta"
-            href="https://www.telegra.org"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <li className="charlie">
-              <Icon
-                className="alpha beta delta"
-                icon="akar-icons:telegram-fill"
-              />
-            </li>
-          </a>
-          <a
-            className="beta"
-            href="https://www.youtube.com"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <li className="charlie">
-              <Icon className="alpha beta delta" icon="fa:youtube" />
-            </li>
-          </a>
-        </ul>
       </div>
-    </div>
-  )
+    </footer>
+  );
 }

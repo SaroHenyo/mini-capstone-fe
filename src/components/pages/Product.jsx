@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import Footer from "../Footer";
-import { useSelector } from "react-redux";
-import { db } from "../../firebase";
-import firebase from "firebase/compat/app";
 
 export default function Product() {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState([]);
-  const activeUser = useSelector((state) => state.activeUser);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,14 +22,6 @@ export default function Product() {
 
   const addProductToCart = (e) => {
     e.preventDefault();
-    if (activeUser.id) {
-      db.collection("users").doc(activeUser.id).collection("cart").add({
-        product: product,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      });
-    } else {
-      navigate("/login");
-    }
   };
 
   const renderProduct = () => {

@@ -8,8 +8,6 @@
     box-shadow: 0 3px 12px rgb(0 0 0 / 0.2);
     border-radius: 20px;
     padding: 10px 10%;
-    margin-top: 100px;
-
 }
 .service-btn{
     background-color: white;
@@ -45,7 +43,6 @@
     border-radius: 20px;
     padding: 10px 10%;
     color: white;
-    margin-top: 100px;
 }
 .service-btn-dark{
     background-color: rgb(0, 0, 0, 0.2) !important;

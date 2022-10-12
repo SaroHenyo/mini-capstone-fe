@@ -1,8 +1,4 @@
 /* <!-- ---- Initial/Setup ---- --> */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root{
   --lg-font: 'Kaisei Tokumin', serif;
   --sm-font: 'Poppins', sans-serif;
