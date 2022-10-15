@@ -1,22 +1,50 @@
-import React from "react";
-import { topRated, bestSelling, onSale } from "../../utilities/enums";
+import React, { useEffect, useState } from "react";
 import Footer from "../Footer";
+import * as actionPopularProducts from "../../redux/actions/actionPopularProduct";
+import { bindActionCreators } from "redux";
+import { useDispatch } from "react-redux";
 
 export default function AboutUs() {
+  const [topRated, setTopRated] = useState([]);
+  const [bestSelling, setBestSelling] = useState([]);
+  const [onSale, setOnsale] = useState([]);
+  const { getAllPopularProducts } = bindActionCreators(
+    actionPopularProducts,
+    useDispatch()
+  );
+
+  useEffect(() => {
+    getAllPopularProducts().then((response) => {
+      setTopRated(
+        response.payload.filter((product) => product.type === "topRated")
+      );
+      setBestSelling(
+        response.payload.filter((product) => product.type === "bestSelling")
+      );
+      setOnsale(
+        response.payload.filter((product) => product.type === "onSale")
+      );
+    });
+  }, []);
+
   const renderPopular = (data) => {
     return data.map((product) => (
       <div
         className="d-flex align-items-start justify-content-start"
-        key={data.id}
+        key={data.productId}
       >
         <img
-          src={product.image}
-          alt={product.title}
+          src={
+            product.imageLink
+              ? `http://localhost:8080/popular/${product.productId}/download`
+              : "/images/empty-image.jpeg"
+          }
+          alt={product.productName}
           className="img-fluid w-25 pe-3"
         />
         <div className="description">
-          <p className="mb-0">{product.title}</p>
-          <span>{product.price}</span>
+          <p className="mb-0">{product.productName}</p>
+          <span>$ {product.price}</span>
         </div>
       </div>
     ));

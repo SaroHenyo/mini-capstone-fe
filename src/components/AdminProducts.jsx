@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actionProduct from "../redux/actions/actionProduct";
 import { useDropzone } from "react-dropzone";
+import axios from "axios";
 
 export default function AdminProducts() {
   const [productName, setProductName] = useState("");
@@ -80,6 +81,25 @@ export default function AdminProducts() {
 
       const formData = new FormData();
       formData.append("file", file);
+
+      // Upload Image
+      axios
+        .put(
+          `http://localhost:8080/product/${product.productId}/upload`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then(() => {
+          console.log("file uploaded successfully");
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }, []);
 
     // React Dropzone
@@ -90,7 +110,9 @@ export default function AdminProducts() {
       <div className="card h-100 text-center p-4">
         <img
           src={
-            product.imageLink ? product.imageLink : "/images/empty-image.jpeg"
+            product.imageLink
+              ? `http://localhost:8080/product/${product.productId}/download`
+              : "/images/empty-image.jpeg"
           }
           alt={product.productName}
           {...getRootProps()}

@@ -15,6 +15,22 @@ export const getAllProducts = () => {
     })
 }
 
+export const getProduct = (productId) => {
+    const url = `/product/getById/${productId}`;
+    return new Promise((resolve, reject) => {
+        const promise = get(url);
+        promise.then((response) => {
+            resolve({
+                type: 'GET_ACTIVE_PRODUCT',
+                payload: response
+            })
+        }).catch((error) => {
+            reject(error);
+        })
+    })
+}
+
+
 export const addProduct = (body) => {
     const url = '/product/add';
     return new Promise((resolve, reject) => {

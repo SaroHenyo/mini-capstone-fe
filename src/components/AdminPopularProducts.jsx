@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actionPopularProducts from "../redux/actions/actionPopularProduct";
 import { useDropzone } from "react-dropzone";
+import axios from "axios";
 
 export default function AdminPopularProducts() {
   const [productName, setProductName] = useState("");
@@ -65,6 +66,25 @@ export default function AdminPopularProducts() {
 
       const formData = new FormData();
       formData.append("file", file);
+
+      // Upload to s3
+      axios
+        .put(
+          `http://localhost:8080/popular/${product.productId}/upload`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then(() => {
+          console.log("file uploaded successfully");
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }, []);
 
     // React Dropzone
@@ -75,7 +95,9 @@ export default function AdminPopularProducts() {
       <div className="card h-100 text-center p-4">
         <img
           src={
-            product.imageLink ? product.imageLink : "/images/empty-image.jpeg"
+            product.imageLink
+              ? `http://localhost:8080/popular/${product.productId}/download`
+              : "/images/empty-image.jpeg"
           }
           alt={product.productName}
           {...getRootProps()}

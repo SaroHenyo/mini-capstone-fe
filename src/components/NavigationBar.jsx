@@ -1,41 +1,50 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faShoppingCart,
   faSignOut,
   faSignIn,
   faEdit,
-} from "@fortawesome/free-solid-svg-icons";
-import { Container, Navbar } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
-import Spinner from "react-spinkit";
+} from '@fortawesome/free-solid-svg-icons'
+import { Container, Navbar } from 'react-bootstrap'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { auth } from '../firebase'
+import Spinner from 'react-spinkit'
+import * as actionCart from '../redux/actions/actionCart'
+import { bindActionCreators } from 'redux'
+import { useDispatch } from 'react-redux'
 
 export default function NavigationBar() {
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  // const [cartProducts] = useCollection(
-  //   activeUser?.id &&
-  //     db.collection("users").doc(activeUser.id).collection("cart")
-  // );
+  const [loading, setLoading] = useState(false)
+  const [cartProducts, setCartProducts] = useState([])
+  const navigate = useNavigate()
+  const { getAllProductsByUser } = bindActionCreators(actionCart, useDispatch())
+
+  useEffect(() => {
+    if (localStorage.email) {
+      getAllProductsByUser(localStorage.email).then((response) => {
+        setCartProducts(response.payload)
+      })
+    }
+  }, [])
 
   const logout = (e) => {
-    e.preventDefault();
-    auth.signOut();
-    setLoading(true);
+    e.preventDefault()
+    auth.signOut()
+    setLoading(true)
     setTimeout(() => {
-      setLoading(false);
-      localStorage.removeItem("email");
-      navigate("/login");
-    }, 1000);
-  };
+      setLoading(false)
+      localStorage.removeItem('email')
+      navigate('/login')
+    }, 1000)
+  }
 
   if (loading) {
     return (
       <div className="m-5">
         <Spinner name="ball-spin-fade-loader" color="blue" fadeIn="none" />
       </div>
-    );
+    )
   }
 
   return (
@@ -62,7 +71,7 @@ export default function NavigationBar() {
               >
                 <FontAwesomeIcon icon={faShoppingCart} />
                 <span className="nav-btn-label"> CART </span>(
-                {/* {cartProducts ? cartProducts?.docs.length : 0}) */}
+                {cartProducts ? cartProducts?.length : 0})
               </NavLink>
               <NavLink
                 to="/login"
@@ -94,7 +103,7 @@ export default function NavigationBar() {
               </NavLink>
             </>
           )}
-          {localStorage.email === "saro@admin.com" && (
+          {localStorage.email === 'admin@admin.com' && (
             <NavLink
               to="/admin"
               className="btn position-relative"
@@ -103,7 +112,6 @@ export default function NavigationBar() {
               <span className="nav-btn-label"> ADMIN</span>
             </NavLink>
           )}
-
         </div>
 
         <Navbar.Toggle className="border-0">
@@ -136,5 +144,5 @@ export default function NavigationBar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  );
+  )
 }

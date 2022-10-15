@@ -1,52 +1,52 @@
-import { useEffect, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
-import { renderLoading } from '../utilities/loader'
-import * as actionProducts from '../redux/actions/actionProduct'
-import { bindActionCreators } from 'redux'
-import { useDispatch } from 'react-redux'
+import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { renderLoading } from "../utilities/loader";
+import * as actionProducts from "../redux/actions/actionProduct";
+import { bindActionCreators } from "redux";
+import { useDispatch } from "react-redux";
 
 export default function Collection() {
-  const { getAllProducts } = bindActionCreators(actionProducts, useDispatch())
-  const [activeFilter, setActiveFilter] = useState('ALL')
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(false)
+  const { getAllProducts } = bindActionCreators(actionProducts, useDispatch());
+  const [activeFilter, setActiveFilter] = useState("ALL");
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
 
     getAllProducts().then((response) => {
       setTimeout(() => {
         const allProducts = response.payload.filter(
-          (product) => product.type === 'regular',
-        )
+          (product) => product.type === "regular"
+        );
 
-        if (activeFilter !== 'ALL') {
+        if (activeFilter !== "ALL") {
           setProducts(
-            allProducts.filter((product) => product.filter === activeFilter),
-          )
-          setLoading(false)
+            allProducts.filter((product) => product.filter === activeFilter)
+          );
+          setLoading(false);
         } else {
-          setProducts(allProducts)
-          setLoading(false)
+          setProducts(allProducts);
+          setLoading(false);
         }
-      }, 1000)
-    })
-  }, [activeFilter])
+      }, 1000);
+    });
+  }, [activeFilter]);
 
   const renderRatings = (ratings) => {
-    const sequence = []
+    const sequence = [];
     for (let step = 1; step <= parseInt(ratings); step++) {
-      sequence.push(1)
+      sequence.push(1);
     }
 
     return sequence.map(() => (
       <span className="text-primary">
         <FontAwesomeIcon icon={faStar} />
       </span>
-    ))
-  }
+    ));
+  };
 
   const renderCollectionList = () => {
     return products.map((item) => (
@@ -54,7 +54,11 @@ export default function Collection() {
         <div className="collection-img position-relative">
           <Link to={`/product/${item.productId}`}>
             <img
-              src={item.imageLink ? item.imageLink : '/images/empty-image.jpeg'}
+              src={
+                item.imageLink
+                  ? `http://localhost:8080/product/${item.productId}/download`
+                  : "/images/empty-image.jpeg"
+              }
               alt={item.productName}
               className="w-100"
             />
@@ -67,11 +71,11 @@ export default function Collection() {
         <div className="text-center">
           <div className="rating">{renderRatings(item.ratings)}</div>
           <p className="text-capitalize my-1">{item.productName}</p>
-          <span className="fw-bold">{item.price}</span>
+          <span className="fw-bold">$ {item.price}</span>
         </div>
       </div>
-    ))
-  }
+    ));
+  };
 
   return (
     <section id="collection" className="py-5">
@@ -82,16 +86,16 @@ export default function Collection() {
 
         <div className="row g-0">
           <div className="d-flex flex-wrap mt-5 justify-content-center">
-            <button className="btn m-2" onClick={() => setActiveFilter('ALL')}>
+            <button className="btn m-2" onClick={() => setActiveFilter("ALL")}>
               All
             </button>
-            <button className="btn m-2" onClick={() => setActiveFilter('best')}>
+            <button className="btn m-2" onClick={() => setActiveFilter("best")}>
               Best Sellers
             </button>
-            <button className="btn m-2" onClick={() => setActiveFilter('feat')}>
+            <button className="btn m-2" onClick={() => setActiveFilter("feat")}>
               Featured
             </button>
-            <button className="btn m-2" onClick={() => setActiveFilter('new')}>
+            <button className="btn m-2" onClick={() => setActiveFilter("new")}>
               New Arrival
             </button>
           </div>
@@ -101,5 +105,5 @@ export default function Collection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
